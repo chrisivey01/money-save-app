@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StarbucksController {
 
     @Autowired
-    StarbucksRepository starbucksRepository;
+    private StarbucksRepository starbucksRepository;
 
     @PostMapping("/starbucks")
     public Starbucks dayAndMoneySaved(@RequestBody Starbucks starbucks){
