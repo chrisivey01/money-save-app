@@ -4,10 +4,7 @@ import listservices.listservices.entity.Item;
 import listservices.listservices.repository.StarbucksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @CrossOrigin
@@ -18,19 +15,18 @@ public class ItemController {
     private StarbucksRepository starbucksRepository;
 
     @PostMapping("/items")
-    @Transactional
-    public Item dayAndMoneySaved(@RequestBody Item item){
+    public Item dayAndMoneySaved(@RequestBody Item item) {
+        return starbucksRepository.save(item);
+    }
 
-        item.setItem(item.getItem());
+    @GetMapping("/items")
+    public Iterable<Item> getItems() {
+        return starbucksRepository.findAll();
+    }
 
-        if(item.getItem().equals("Starbucks") || item.getItem().equals("starbucks") ) {
-
-            it
-            item.setDays_without_item(item.getDays_without_item());
-            item.setMoney_saved_without_item(item.getMoney_saved_without_item());
-
-            item = starbucksRepository.(item);
-        }
-        return item;
+    @PatchMapping("/items")
+    public Item updateItem(@RequestBody Item item) {
+        return starbucksRepository.save(item);
     }
 }
+
