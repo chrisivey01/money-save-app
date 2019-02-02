@@ -1,9 +1,11 @@
 package listservices.listservices.entity;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class ItemUsed {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,6 +15,12 @@ public class ItemUsed {
     Integer noOfDaysUsed;
 
     public ItemUsed() {
+    }
+
+    public ItemUsed(Integer userId, Integer itemId, Integer noOfDaysUsed) {
+        this.userId = userId;
+        this.itemId = itemId;
+        this.noOfDaysUsed = noOfDaysUsed;
     }
 
     public Integer getId() {
