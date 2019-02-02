@@ -1,36 +1,50 @@
 package listservices.listservices.controller;
 
 import listservices.listservices.entity.Item;
-import listservices.listservices.repository.StarbucksRepository;
+import listservices.listservices.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
 public class ItemController {
 
+    private ItemRepository itemRepository;
+
     @Autowired
-    private StarbucksRepository starbucksRepository;
+    public ItemController(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
-    @PostMapping("/items")
-    @Transactional
-    public Item dayAndMoneySaved(@RequestBody Item item){
+    @PostMapping("/item")
+    public Item createItem(@RequestBody Item item) {
+        return itemRepository.save(item);
+    }
 
-        item.setItem(item.getItem());
+    @GetMapping("/items")
+    public Iterable<Item> getItems() {
+        return itemRepository.findAll();
+    }
 
-        if(item.getItem().equals("Starbucks") || item.getItem().equals("starbucks") ) {
+    @GetMapping("/item/{id}")
+    public Optional<Item> getItemById(@PathVariable Integer id) {
+        return itemRepository.findById(id);
+    }
 
-            it
-            item.setDays_without_item(item.getDays_without_item());
-            item.setMoney_saved_without_item(item.getMoney_saved_without_item());
+    @PatchMapping("/item")
+    public Item updateItem(@RequestBody Item item) {
+        return itemRepository.save(item);
+    }
 
-            item = starbucksRepository.(item);
+    @DeleteMapping("/item")
+    public String deleteItem(@RequestBody Item item) {
+        if(getItemById(item.getId()).isPresent()) {
+            itemRepository.delete(item);
+            return "Item deleted";
+        }else{
+            return "No Item found with Id: " + item.getId();
         }
-        return item;
     }
 }

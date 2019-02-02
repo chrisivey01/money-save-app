@@ -1,21 +1,27 @@
 package listservices.listservices.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-@Table(name="Starbucks")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     Integer id;
-    @Column(name = "item")
-    String item;
-    @Column(name = "days_without_item")
-    int days_without_item;
-    @Column(name = "money_saved_without_item")
-    int money_saved_without_item;
+    String description;
+    String location;
+    Double cost;
 
+    public Item() {
+    }
+
+    public Item(String description, String location, Double cost) {
+        this.description = description;
+        this.location = location;
+        this.cost = cost;
+    }
 
     public Integer getId() {
         return id;
@@ -25,27 +31,37 @@ public class Item {
         this.id = id;
     }
 
-    public String getItem() {
-        return item;
+    public String getDescription() {
+        return description;
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getDays_without_item() {
-        return days_without_item;
+    public String getLocation() {
+        return location;
     }
 
-    public void setDays_without_item(int days_without_item) {
-        this.days_without_item = days_without_item;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public int getMoney_saved_without_item() {
-        return money_saved_without_item;
+    public Double getCost() {
+        return cost;
     }
 
-    public void setMoney_saved_without_item(int money_saved_without_item) {
-        this.money_saved_without_item = money_saved_without_item;
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", cost=" + cost +
+                '}';
     }
 }
